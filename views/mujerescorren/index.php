@@ -33,8 +33,8 @@
             background-image: url("https://time.fotosdeaventura.com/admin/user_content/img/img_evento79.jpg");
         }
         .input{
-            //border: 3px solid #c9b2ba;
-            //border-radius: 10px;
+            /*>border: 3px solid #c9b2ba;
+            border-radius: 10px;*/
         }
         .jumbotron {
             background-image: url('https://time.fotosdeaventura.com/admin/user_content/img/img_evento79.jpg');
@@ -59,14 +59,17 @@
 </head>
 
 <body>
-
-    <div class="jumbotron ">
-        <p  style=" margin-top:120px;color:white; text-align: center; font-weight: 700; font-size: 3rem;line-height:1.2;">MUJERES CORREN 2020</p>
+    <div class="container-fluid">
+        <div class="jumbotron ">
+            <p  style=" margin-top:120px;color:white; text-align: center; font-weight: 700; font-size: 3rem;line-height:1.2;">MUJERES CORREN 2020</p>
+        </div>
     </div>
+
     <div class="container">
-        <section class="buscador">
-            <div class="row">
-                <div class="col-md-4">
+        <div class="row">
+
+
+                <div class="col-sm-12 col-md-4 ">
                     <div class="form-group">
                         <label class="title">Buscar</label>
                         <input placeholder="Nombre o Número de Corredor" type="text" class="form-control input">
@@ -97,11 +100,11 @@
                 </div>
 
             </div>
-        </section>
+
 
     </div>
 
-    <div class="container-fluid mt-3" style="background: white">
+    <div class="containerfluid mt-3" style="background: white">
         <div class="container">
             <section>
                 <table class="table table-condensed" style="color:grey">
@@ -153,6 +156,7 @@
         </div>
 
     </div>
+
 
 
 
