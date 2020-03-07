@@ -34,13 +34,12 @@ class BotController extends Controller{
 
 		echo $date; 
 
-                $data = json_decode($json, TRUE);
+          $data = json_decode($json, TRUE);
         $guardados=0;
         $noGuardados=0;
         foreach($data as $dat){
-             foreach ($dat as $valor){
-                 echo $valor["numEquipo"];
-             }
+              echo $dat[0]["numEquipo"];
+
                /* $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
                 if($corredor!=null){
                     $corredor->tiempo=$dat["tiempo"];
@@ -59,7 +58,7 @@ class BotController extends Controller{
             //echo $guardados;
         }
 
-        echo 'cargados Corectamente '. print_r($data);
+        echo 'cargados Corectamente ';
         echo '<hr>';
         //echo 'No cargados '. $noGuardados;
 
