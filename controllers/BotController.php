@@ -40,7 +40,7 @@ class BotController extends Controller{
             //si no existe el equipo en la base se carga
 
                 //es numero de corredor
-                $corredor=Corredor::findOne(['numcorredor'=>$dat['numEquipo']]);
+                $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
                 $corredor->tiempo=$dat["tiempo"];
                 $corredor->save();
 
