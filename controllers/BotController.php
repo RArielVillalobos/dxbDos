@@ -38,17 +38,13 @@ class BotController extends Controller{
         $guardados=0;
         $noGuardados=0;
         foreach($data as $dat){
-            //si no existe el equipo en la base se carga
-                print_r($data);
-                //es numero de corredor
-
-                $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
-                print_r($corredor);
+               /* $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
                 if($corredor!=null){
                     $corredor->tiempo=$dat["tiempo"];
                     $corredor->save();
                     $guardados++;
-                }
+                }*/
+               echo $dat["numEquipo"];
 
 
                 //num equipo y tiempo
