@@ -23,9 +23,9 @@ class BotController extends Controller{
        
 
         //https://api.telegram.org/bot922193529:AAHHRBwHvKWOkPWgmNvWFD6_YTHdZ8mrRl8/setwebhook?url=https://dxb.fi.uncoma.edu.ar/AAHHRBwHvKWOkPWgmNvWFD6_YTHdZ8mrRl8.php
-        //$ruta='archivo/pagoinscripcion/chatbot';
 
-        $ruta='/web/chatbot';
+
+        $ruta='/chatbot';
 
         $json= file_get_contents("$ruta/$id.json");
 
