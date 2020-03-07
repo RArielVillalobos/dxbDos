@@ -28,7 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idCorredor',
             'numCorredor',
-            'idCategoria',
+            [
+              'attribute'=>'idCategoria',
+                'label'=>'Categoria',
+                'value'=>'cate'
+            ],
             'idPersona',
             'tiempo',
 

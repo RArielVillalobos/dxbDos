@@ -85,13 +85,18 @@ class Corredor extends \yii\db\ActiveRecord
     }
 
     public static function getCorredores($idCategoria){
-        $corredores = Yii::$app->getDb()->createCommand("SELECT idCorredor,numCorredor,p.nombre,p.apellido,p.dni,c.kilometros,c.nombreCategoria ,p.idPersona,s.tiempo,IF (@score=s.tiempo, @rank:=@rank, @rank:=@rank+1) rank, @score:=s.tiempo score FROM corredor s INNER JOIN categoria AS c ON (s.idCategoria=c.idCategoria) INNER JOIN persona AS p ON (s.idPersona=p.idPersona), (SELECT @score:=0, @rank:=0) r WHERE s.idCategoria=$idCategoria AND c.equipo=0 ORDER BY rank ASC")->queryAll();
+        $corredores = Yii::$app->getDb()->createCommand("SELECT idCorredor,numCorredor,p.nombre,p.apellido,p.dni,c.kilometros,c.nombreCategoria ,p.idPersona,s.tiempo,IF (@score=s.tiempo, @rank:=@rank, @rank:=@rank+1) rank, @score:=s.tiempo score FROM corredor s INNER JOIN categoria AS c ON (s.idCategoria=c.idCategoria) INNER JOIN persona AS p ON (s.idPersona=p.idPersona), (SELECT @score:=0, @rank:=0) r WHERE s.idCategoria=$idCategoria AND c.equipo=0 AND s.tiempo>0 ORDER BY rank ASC")->queryAll();
         return $corredores;
     }
 
     public static function getCorredoresGeneral($kilometros,$equipo=false){
-        $corredores= Yii::$app->getDb()->createCommand("SELECT idCorredor,numCorredor,p.nombre,p.apellido,p.dni,c.kilometros,c.nombreCategoria ,p.idPersona,s.tiempo,IF (@score=s.tiempo, @rank:=@rank, @rank:=@rank+1) rank, @score:=s.tiempo score FROM corredor s INNER JOIN categoria AS c ON (s.idCategoria=c.idCategoria) INNER JOIN persona AS p ON (s.idPersona=p.idPersona), (SELECT @score:=0, @rank:=0) r WHERE c.kilometros=$kilometros AND c.equipo=$equipo ORDER BY rank ASC")->queryAll();
+        $corredores= Yii::$app->getDb()->createCommand("SELECT idCorredor,numCorredor,p.nombre,p.apellido,p.dni,c.kilometros,c.nombreCategoria ,p.idPersona,s.tiempo,IF (@score=s.tiempo, @rank:=@rank, @rank:=@rank+1) rank, @score:=s.tiempo score FROM corredor s INNER JOIN categoria AS c ON (s.idCategoria=c.idCategoria) INNER JOIN persona AS p ON (s.idPersona=p.idPersona), (SELECT @score:=0, @rank:=0) r WHERE c.kilometros=$kilometros AND c.equipo=$equipo AND s.tiempo>0 ORDER BY rank ASC")->queryAll();
         return $corredores;
+    }
+    public function getCate() {
+
+        return $this->categoria->nombreCategoria;
+
     }
 
     //viejo
