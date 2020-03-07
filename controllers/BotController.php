@@ -37,14 +37,15 @@ class BotController extends Controller{
                 $data = json_decode($json, TRUE);
         $guardados=0;
         $noGuardados=0;
-        foreach($data as $dat){
+        foreach($data as $clave => $valor){
                /* $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
                 if($corredor!=null){
                     $corredor->tiempo=$dat["tiempo"];
                     $corredor->save();
                     $guardados++;
                 }*/
-               echo $dat["numEquipo"];
+               echo $valor[$clave]["numEquipo"];
+               echo "<pre></pre>";
 
 
                 //num equipo y tiempo
