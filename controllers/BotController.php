@@ -39,14 +39,15 @@ class BotController extends Controller{
         $noGuardados=0;
         foreach($data as $dat){
             //si no existe el equipo en la base se carga
-
+                print_r($data);
                 //es numero de corredor
 
                 $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
+                print_r($corredor);
                 if($corredor!=null){
                     $corredor->tiempo=$dat["tiempo"];
                     $corredor->save();
-                    $noGuardados++;
+                    $guardados++;
                 }
 
 
@@ -58,7 +59,7 @@ class BotController extends Controller{
             //echo $guardados;
         }
 
-        echo 'cargados Corectamente '. $guardados;
+        echo 'cargados Corectamente '. print_r($data);
         echo '<hr>';
         //echo 'No cargados '. $noGuardados;
 
