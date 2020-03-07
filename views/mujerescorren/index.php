@@ -5,13 +5,13 @@
 
 <!doctype html>
 
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8">
 
     <title>RESULTADOS MUJERES CORREN</title>
-    <meta name="description" content="The HTML5 Herald">
-    <meta name="author" content="SitePoint">
+
+    <meta name="viewport" content="initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
@@ -59,16 +59,12 @@
 </head>
 
 <body>
-    <div class="container-fluid">
         <div class="jumbotron ">
             <p  style=" margin-top:120px;color:white; text-align: center; font-weight: 700; font-size: 3rem;line-height:1.2;">MUJERES CORREN 2020</p>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-
-
+        <div class="container">
+            <div class="row mb-3">
                 <div class="col-sm-12 col-md-4 ">
                     <div class="form-group">
                         <label class="title">Buscar</label>
@@ -76,7 +72,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-4">
                     <div class="form-group">
                         <label class="title">Carrera</label>
                         <select class="form-control input">
@@ -88,7 +84,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-12 col-md-4">
 
                     <label class="title">Categoria</label>
                     <select class="form-control input">
@@ -101,61 +97,63 @@
 
             </div>
 
-
-    </div>
-
-    <div class="containerfluid mt-3" style="background: white">
-        <div class="container">
-            <section>
-                <table class="table table-condensed" style="color:grey">
-                    <thead>
-                    <tr>
-                        <th style="font-weight: 600; font-size: 14px!important;">Posicion</th>
-                        <th style="font-weight: 600; font-size: 14px!important;">Corredor</th>
-                        <th style="font-weight: 600; font-size: 14px!important;">Carrera</th>
-                        <th style="font-weight: 600; font-size: 14px!important;">Categoria</th>
-                        <th style="font-weight: 600; font-size: 14px!important;">Tiempo</th>
-                    </tr>
-
-
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
-                            <td>5KM</td>
-                            <td>5KM 18 A 29</td>
-                            <td class="tiempo">00:24:30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
-                            <td>5KM</td>
-                            <td>5KM 18 A 29</td>
-                            <td class="tiempo">00:24:30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
-                            <td>5KM</td>
-                            <td>5KM 18 A 29</td>
-                            <td class="tiempo">00:24:30</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
-                            <td>5KM</td>
-                            <td>5KM 18 A 29</td>
-                            <td class="tiempo">00:24:30</td>
-                        </tr>
-                    </tbody>
-
-                </table>
-            </section>
-
         </div>
+            <div class="container-fluid" style="background-color: white; border: 1px solid #FFFFFF">
+                <div class="container">
+                    <div class="table-responsive">
+                        <table class="table" style="color:grey;">
+                            <thead>
+                            <tr>
+                                <th style="font-weight: 600; font-size: 14px!important;">Posicion</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Corredor</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Carrera</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Categoria</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Tiempo</th>
+                            </tr>
 
-    </div>
+
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
+                                <td>5KM</td>
+                                <td>5KM 18 A 29</td>
+                                <td class="tiempo">00:24:30</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
+                                <td>5KM</td>
+                                <td>5KM 18 A 29</td>
+                                <td class="tiempo">00:24:30</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
+                                <td>5KM</td>
+                                <td>5KM 18 A 29</td>
+                                <td class="tiempo">00:24:30</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
+                                <td>5KM</td>
+                                <td>5KM 18 A 29</td>
+                                <td class="tiempo">00:24:30</td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
 
 
 
