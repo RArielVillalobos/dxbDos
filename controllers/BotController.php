@@ -38,7 +38,7 @@ class BotController extends Controller{
         $guardados=0;
         $noGuardados=0;
         foreach($data as $dat){
-              echo $dat[0]["numEquipo"];
+              echo $dat["numEquipo"];
 
                /* $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
                 if($corredor!=null){
