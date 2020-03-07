@@ -54,7 +54,7 @@ class Equipocorredor extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdCorredor0()
+    public function getCorredor()
     {
         return $this->hasOne(Corredor::className(), ['idCorredor' => 'idCorredor']);
     }

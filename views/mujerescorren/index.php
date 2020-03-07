@@ -54,49 +54,70 @@
         .nombre{
             font-weight: 600 !important;
             font-size: 16px;
+            text-transform: capitalize;
         }
     </style>
 </head>
 
 <body>
-        <div class="jumbotron ">
+        <div class="jumbotron">
             <p  style=" margin-top:120px;color:white; text-align: center; font-weight: 700; font-size: 3rem;line-height:1.2;">MUJERES CORREN 2020</p>
         </div>
-
         <div class="container">
-            <div class="row mb-3">
-                <div class="col-sm-12 col-md-4 ">
-                    <div class="form-group">
-                        <label class="title">Buscar</label>
-                        <input placeholder="Nombre o Número de Corredor" type="text" class="form-control input">
+        <?php $form = \yii\widgets\ActiveForm::begin([
+            'method' => 'get',
+            'action' =>\yii\helpers\Url::to(['mujerescorren/index']),
+        ]); ?>
 
+            <button id="btnAbrirBuscador" type="button" class="btn btn-info btn-sm" style="cursor:pointer;">Click para abrir buscador</button>
+            <br>
+            <br>
+            <div id="buscador" style="display:none">
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-4 ">
+                        <div class="form-group">
+                            <label class="title">Buscar</label>
+                            <input placeholder="Nombre o Número de Corredor" type="text" class="form-control input">
+
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label class="title">Carrera</label>
-                        <select class="form-control input">
-                            <option>Equipos</option>
-                            <option>5K</option>
-                            <option>10K</option>
+                    <div class="col-sm-12 col-md-3">
+                        <div class="form-group">
+                            <label class="title">Carrera</label>
+                            <select name="carrera" id="selectCarrera" class="form-control input">
+                                <option value="equipo" <?php if(isset($carreraSeleccionada) && $carreraSeleccionada == "equipo") echo  'selected' ?>>Equipos</option>
+                                <option value="5kindividual" <?php if(isset($carreraSeleccionada) && $carreraSeleccionada == "5kindividual") echo  'selected' ?>>5K Individual</option>
+                                <option value="10kindividual" <?php if(isset($carreraSeleccionada) && $carreraSeleccionada  == "10kindividual") echo  'selected' ?>>10K Individual</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+
+                        <label class="title">Categoria</label>
+                        <select name="categoria" id="selectCategoria" class="form-control input">
+                            <option value="general">GENERAL</option>
+
+
+
+
+
+
 
                         </select>
+                    </div>
+                    <div class="col-md-2">
+                        <br>
+                        <button class="btn btn-info" type="submit">Filtrar</button>
 
                     </div>
+
                 </div>
-                <div class="col-sm-12 col-md-4">
-
-                    <label class="title">Categoria</label>
-                    <select class="form-control input">
-                        <option>Equipos</option>
-                        <option>5K</option>
-                        <option>10K</option>
-
-                    </select>
-                </div>
-
             </div>
 
+
+            <?php \yii\widgets\ActiveForm::end(); ?>
         </div>
             <div class="container-fluid" style="background-color: white; border: 1px solid #FFFFFF">
                 <div class="container">
@@ -114,6 +135,7 @@
 
                             </thead>
                             <tbody>
+                            <!--
                             <tr>
                                 <td>1</td>
                                 <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
@@ -121,27 +143,63 @@
                                 <td>5KM 18 A 29</td>
                                 <td class="tiempo">00:24:30</td>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
-                                <td>5KM</td>
-                                <td>5KM 18 A 29</td>
-                                <td class="tiempo">00:24:30</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
-                                <td>5KM</td>
-                                <td>5KM 18 A 29</td>
-                                <td class="tiempo">00:24:30</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><span class="numero">#333</span> <strong class="nombre">Martina Diaz</strong></td>
-                                <td>5KM</td>
-                                <td>5KM 18 A 29</td>
-                                <td class="tiempo">00:24:30</td>
-                            </tr>
+
+                            -->
+
+                            <?php
+                                //$posicion=1;
+                            if($carreraSeleccionada=="equipo"){
+                                $posicion=1;
+
+                                  foreach ($corredores as $corredor){
+
+
+                                         $equipo=\app\models\Equipo::findOne(['idEquipo'=>$corredor["idEquipo"]]);
+
+
+
+
+
+                                         if($equipo->cantidadParticipantes()==$corredor["llegaron_a_meta"]){
+
+
+                                            ?>
+                                             <tr>
+                                                 <td><?php echo $posicion; $posicion++?></td>
+                                                 <td><strong class="nombre"><?php echo $equipo->getNombreParticipantesEquipo(); ?></strong></td>
+                                                 <td>Equipos</td>
+                                                 <td><?php echo $corredor["nombreCategoria"];?></td>
+                                                 <td class="tiempo"><?php echo date("H:i:s", $corredor["sumaTotal"] / 1000); ?></td>
+                                             </tr>
+                                    <?php
+                                         }
+                                      ?>
+
+                            <?php
+                                  }
+                                ?>
+
+                            <?php
+
+                            }else {
+
+
+                                foreach ($corredores as $corredor) {
+
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $corredor["rank"]; ?></td>
+                                        <td><span class="numero">#333</span> <strong
+                                                    class="nombre"><?php echo $corredor["nombre"]; ?></strong></td>
+                                        <td><?php echo $corredor["kilometros"] . "KM"; ?></td>
+                                        <td><?php echo $corredor["nombreCategoria"]; ?></td>
+                                        <td class="tiempo"><?php echo date("H:i:s", $corredor["tiempo"] / 1000); ?></td>
+                                    </tr>
+
+                                    <?php
+                                }
+                            }
+                            ?>
                             </tbody>
 
                         </table>
@@ -153,15 +211,87 @@
             </div>
 
 
-
-
-
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+        $("#btnAbrirBuscador").on("click",function(){
+            if(!$('#buscador').is(':visible'))
+            {
+                $("#buscador").show();
+            }else{
+                $("#buscador").hide();
+            }
+
+        });
+
+        var carreraSeleccionada=getQueryStringValue ("carrera");
+        //$("#selectCarrera").val(carreraSeleccionada);
+        cargarComboCarrera(carreraSeleccionada);
+
+
+
+
+        $("#selectCarrera").on("change",function(){
+            var carreraSelec=$("#selectCarrera").val();
+
+            cargarComboCarrera(carreraSelec);
+
+
+
+
+        });
+        function cargarComboCarrera(carrera){
+            var categoriaSeleccionada=getQueryStringValue ("categoria");
+
+            $.ajax({
+                url: 'index.php?r=mujerescorren/categorias&carrera='+carrera,
+
+                success: function(respuesta) {
+                    var data=JSON.parse(respuesta);
+
+                    $("#selectCategoria").empty();
+                    $("#selectCategoria").append(`<option value="general">General</option>`);
+                    $.each(data, function(index, item) {
+
+                        $("#selectCategoria").append(`<option  value="${item.idCategoria}" ${categoriaSeleccionada==item.idCategoria && categoriaSeleccionada!="general"?"selected":""}>${item.nombreCategoria}</option>`);
+
+                    });
+
+
+                },
+                error: function() {
+                    console.log("No se ha podido obtener la información");
+                }
+            });
+
+
+        }
+
+        function getQueryStringValue (key) {
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        }
+        /*if(getQueryStringValue("carrera")==1 && getQueryStringValue("categoria")=="general"){
+            //window.location.href = "/index.php?r=mujerescorren%2Findex&carrera="+ $("#selectCarrera").val()+"&categoria="+$("#selectCategoria").val();
+
+        }*/
+
+
+
+        /*$("#selectCarrera").on("change",function(){
+
+
+            window.location.href = "/index.php?r=mujerescorren%2Findex&carrera="+ $("#selectCarrera").val()+"&categoria="+$("#selectCategoria").val();
+
+        });
+
+        $("#selectCategoria").on("change",function(){
+
+            var valorSeleccionadoCategoria=$("#selectCategoria").val();
+
+            window.location.href = "/index.php?r=mujerescorren%2Findex&carrera="+ $("#selectCarrera").val()+"&categoria="+$("#selectCategoria").val();
+        });*/
+    </script>
 </body>
 </html>

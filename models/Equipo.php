@@ -70,4 +70,21 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(EquipoCorredor::className(), ['idEquipo' => 'idEquipo']);
     }
+
+    public function cantidadParticipantes(){
+        $cantidadParticipantesEquipo=$corredores=Yii::$app->getDb()->createCommand("SELECT COUNT(*) as cantidad_participantes FROM equipocorredor WHERE idEquipo=$this->idEquipo")->queryOne();
+        return $cantidadParticipantesEquipo["cantidad_participantes"];
+
+    }
+
+    public function getNombreParticipantesEquipo(){
+        $personasEquipo=Equipocorredor::findAll(['idEquipo'=>$this->idEquipo]);
+        $nombre="";
+        foreach ($personasEquipo as $persona){
+              $nombre.= $persona->corredor->persona->getNombreCompleto()."<span style='font-size: 13px' class='tiempo'>(".$persona->corredor->myTiempo().')</span> <br> ';
+        }
+        //Remove the last character using rtrim
+        $nombre = rtrim($nombre, "- ");
+        return $nombre;
+    }
 }

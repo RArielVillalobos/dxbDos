@@ -64,8 +64,19 @@ class Persona extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCorredors()
+    public function getCorredor()
     {
         return $this->hasMany(Corredor::className(), ['idPersona' => 'idPersona']);
+    }
+
+    public function myPosition(){
+
+    }
+
+    public function getNombreCompleto(){
+
+        $nombreCompleto=$this->apellido." ".$this->nombre;
+        return $nombreCompleto;
+
     }
 }
