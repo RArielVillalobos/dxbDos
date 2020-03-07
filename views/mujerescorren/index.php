@@ -56,6 +56,21 @@
             font-size: 16px;
             text-transform: capitalize;
         }
+
+        @media screen and (max-width: 768px)
+         {
+            #buscador{
+                display: none;
+            }
+
+         }
+
+        @media (min-width: 992px) {
+            #btnAbrirBuscador{
+                display: none;
+            }
+        }
+
     </style>
 </head>
 
@@ -72,7 +87,7 @@
             <button id="btnAbrirBuscador" type="button" class="btn btn-info btn-sm" style="cursor:pointer;">Click para abrir buscador</button>
             <br>
             <br>
-            <div id="buscador" style="display:none">
+            <div id="buscador">
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-4 ">
                         <div class="form-group">
