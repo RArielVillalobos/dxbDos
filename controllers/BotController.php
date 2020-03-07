@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Corredor;
+use app\models\CorredorSearch;
 use yii;
 use app\models\Equipo;
 use app\models\Result;
@@ -40,14 +41,19 @@ class BotController extends Controller{
             //si no existe el equipo en la base se carga
 
                 //es numero de corredor
+
                 $corredor=Corredor::findOne(['numCorredor'=>$dat['numEquipo']]);
-                $corredor->tiempo=$dat["tiempo"];
-                $corredor->save();
+                if($corredor!=null){
+                    $corredor->tiempo=$dat["tiempo"];
+                    $corredor->save();
+                    $noGuardados++;
+                }
+
 
                 //num equipo y tiempo
                 //$corredor=
 
-            $noGuardados++;
+
             //$guardados=$guardados+1;
             //echo $guardados;
         }
