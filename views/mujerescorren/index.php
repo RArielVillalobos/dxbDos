@@ -90,14 +90,18 @@
             <br>
             <div id="buscador">
                 <div class="row mb-3">
-                    <div class="col-sm-12 col-md-4 ">
+                    <!-- <div class="col-sm-12 col-md-4 ">
+
                         <div class="form-group">
                             <label class="title">Buscar</label>
                             <input placeholder="Nombre o Número de Corredor" name="nombre_numero" type="text" class="form-control input">
 
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
+
+
+
+                    </div>-->
+                    <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                             <label class="title">Carrera</label>
                             <select name="carrera" id="selectCarrera" class="form-control input">
@@ -109,7 +113,7 @@
 
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-4">
 
                         <label class="title">Categoria</label>
                         <select name="categoria" id="selectCategoria" class="form-control input">

@@ -41,7 +41,7 @@ class MujerescorrenController extends \yii\web\Controller
             $corredores=Corredor::getCorredoresGeneral($carreraSeleccionadaEntero, 0);
         }else{
 
-            if($carreraSeleccionadaString=="equipo" && $_GET["nombre_numero"]==null){
+            if($carreraSeleccionadaString=="equipo" /*&& $_GET["nombre_numero"]==null*/){
                 $corredores=Corredor::getCorredoresEquiposByCategoria($categoriaSeleccionada);
 
 
@@ -63,10 +63,40 @@ class MujerescorrenController extends \yii\web\Controller
     }
     public function actionNew(){
         //por defecto 5k categoria 1
-        $carreraSeleccionada=$_GET["carrera"];
-        $categoriaSeleccionada=1;
-        $corredores=Corredor::find()->where(['idCategoria'=>$categoriaSeleccionada])->where(['tiempo']>0)->orderBy('tiempo')->all();
-        if(isset($_GET["categoria"]) && $_GET["categoria"]!=null){
+        if(!isset($_GET["carrera"])){
+            $carreraSeleccionada="5kindividual";
+            $categoriaSeleccionada=1;
+        }else{
+            $carreraSeleccionada=$_GET["carrera"];
+            $categoriaSeleccionada=$_GET["categoria"];
+        }
+        if(isset($_GET["nombre_numero"]) && $_GET["nombre_numero"]!=null){
+            $filtroNombreNumero=$_GET["nombre_numero"];
+            $corredores=Corredor::getResultado($categoriaSeleccionada,$filtroNombreNumero);
+        }
+        if($_GET["categoria"]=="general"){
+
+            $categoriaSeleccionada=$_GET["categoria"];
+            $carreraSeleccionadaEntero=self::getKilometroByFiltroCarrera($carreraSeleccionada,false);
+            $corredores=Corredor::getResultado($carreraSeleccionadaEntero);
+
+
+        }else{
+
+            $corredores=Corredor::getResultado(null,$categoriaSeleccionada,null);
+
+        }
+
+
+
+
+
+
+
+
+
+
+        /*if(isset($_GET["categoria"]) && $_GET["categoria"]!=null){
 
             $categoriaSeleccionada=$_GET["categoria"];
 
@@ -76,11 +106,12 @@ class MujerescorrenController extends \yii\web\Controller
         if(isset($_GET["categoria"]) && $_GET["categoria"]=="general"){
             $carreraSeleccionadaEntero=self::getKilometroByFiltroCarrera($carreraSeleccionada);
             $corredores=Corredor::find()->where(['kilometros'=>$carreraSeleccionadaEntero])->andWhere(['tiempo']>0)->orderBy('tiempo')->all();
-        }
+        }*/
 
 
         return $this->render('new',['corredores'=>$corredores,'carreraSeleccionada'=>$carreraSeleccionada]);
     }
+
     public function actionCategorias(){
         $carrera=$_GET["carrera"];
          $filtroCarrera=self::getKilometroByFiltroCarrera($carrera);
@@ -95,109 +126,7 @@ class MujerescorrenController extends \yii\web\Controller
          return Json::htmlEncode($categorias);
 
     }
-    public function actionIndexOLdOld(){
-        //control url
-        //evita general equipos
-        /*if(isset($_GET["carrera"])){
-            if($_GET["carrera"]=="equipo" && $_GET["categoria"]=="general"){
 
-                return $this->redirect(["mujerescorren/index",'carrera'=>'equipo','categoria'=>13]);
-            }
-        }*/
-
-
-
-        //carrera
-        if(isset($_GET["carrera"])){
-            $carreraSeleccionada=$_GET["carrera"];
-            $filtroCarrera=self::getKilometroByFiltroCarrera($_GET["carrera"]);
-        }else{
-            $filtroCarrera=5;
-            $carreraSeleccionada="5kindividual";
-        }
-
-        //categoria
-        //si la busqueda por categoria esta seteada
-        if(isset($_GET["categoria"])){
-            $categoriaSeleccionada=$_GET["categoria"];
-        }else{
-            $categoriaSeleccionada="general";
-        }
-
-        //CARGA COMBO FILTROS
-        if($carreraSeleccionada=="equipo"){
-            $categorias= Categoria::find()->where(['kilometros'=>5])->andWhere(['equipo'=>1])->all();
-            //$corredores=Corredor::getCorredores()
-
-        }else{
-            $categorias= Categoria::find()->where(['kilometros'=>$filtroCarrera])->andWhere(['equipo'=>0])->all();
-
-        }
-
-        //si eligio clasificacion general
-        if($categoriaSeleccionada=="general"){
-
-            $corredores = Corredor::getCorredoresGeneral($filtroCarrera, 0);
-
-
-        }else{
-
-
-            $corredores=Corredor::getCorredores($categoriaSeleccionada);
-        }
-
-
-
-
-
-
-        return $this->render('index',['corredores'=>$corredores,'categorias'=>$categorias,'categoriaSeleccionada'=>$categoriaSeleccionada,'carreraSeleccionada'=>$carreraSeleccionada]);
-    }
-    public function actionIndexOld()
-    {
-
-        if(!isset($_GET["carrera"])){
-            $filtroCarreraSeleccionada=$_GET["carrera"];
-        }
-        else{
-            $filtroCarreraSeleccionada=self::CINCOK;
-        }
-        $filtroCarrera=(isset($_GET["carrera"]))?self::getKilometroByFiltroCarrera($filtroCarreraSeleccionada) : self::getKilometroByFiltroCarrera(self::CINCOK);
-
-        if(!isset($_GET["categoria"])) {
-            //select seleccionad
-            $categoriaSeleccionada = "general";
-            //CORREDORES GENERAL 5K INDIVIDUAL
-            $corredores = Corredor::getCorredoresGeneral($filtroCarrera, 0);
-        }
-        if( $_GET["categoria"]=="general" ){
-            $categoriaSeleccionada="general";
-            //CORREDORES GENERAL 5K INDIVIDUAL
-            $corredores=Corredor::getCorredoresGeneral($filtroCarrera,0);
-        }
-        //segun el filtro seleccionado
-        else{
-            $categoriaSeleccionada=$_GET["categoria"];
-            $corredores=Corredor::getCorredores($categoriaSeleccionada);
-        }
-        if($filtroCarreraSeleccionada==1){
-            $categorias= Categoria::find()->where(['kilometros'=>$filtroCarrera])->andWhere(['equipo'=>1])->all();
-            //$corredores=Corredor::getCorredores()
-
-        }else{
-            $categorias= Categoria::find()->where(['kilometros'=>$filtroCarrera])->andWhere(['equipo'=>0])->all();
-
-        }
-
-
-        //$corredores=Corredor::find()->where(['idCategoria'=>$categoriaSeleccionada])->all();
-
-
-
-
-
-        return $this->render('index',['corredores'=>$corredores,'categorias'=>$categorias,'filtroCarrera'=>$filtroCarreraSeleccionada,'categoriaSeleccionada'=>$categoriaSeleccionada]);
-    }
 
 
     public static function getKilometroByFiltroCarrera($value){
