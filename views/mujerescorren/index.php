@@ -145,10 +145,10 @@
                         <table class="table" style="color:grey;">
                             <thead>
                             <tr>
-                                <th style="font-weight: 600; font-size: 14px!important;">Posicion</th>
-                                <th style="font-weight: 600; font-size: 14px!important;">Corredores</th>
-                                <th>Categoria</th>
-                                <th style="font-weight: 600; font-size: 14px!important;">Tiempo Total</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Pos</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Corredoras</th>
+                                <th>Cat</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Tiempo</th>
                             </tr>
 
 
