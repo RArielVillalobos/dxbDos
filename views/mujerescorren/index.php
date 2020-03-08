@@ -75,6 +75,7 @@
 </head>
 
 <body>
+
         <div class="jumbotron">
             <p  style=" margin-top:120px;color:white; text-align: center; font-weight: 700; font-size: 3rem;line-height:1.2;">MUJERES CORREN 2020</p>
         </div>
@@ -231,6 +232,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script>
+
         $("#btnAbrirBuscador").on("click",function(){
             if(!$('#buscador').is(':visible'))
             {
@@ -240,12 +242,14 @@
             }
 
         });
-
         var carreraSeleccionada=getQueryStringValue ("carrera");
-        //$("#selectCarrera").val(carreraSeleccionada);
         cargarComboCarrera(carreraSeleccionada);
 
-
+        if(carreraSeleccionada==""){
+            cargarComboCarrera("5kindividual");
+            //$("#selectCategoria").val(1);
+        }
+        //
 
 
         $("#selectCarrera").on("change",function(){
@@ -254,9 +258,8 @@
             cargarComboCarrera(carreraSelec);
 
 
-
-
         });
+
         function cargarComboCarrera(carrera){
             var categoriaSeleccionada=getQueryStringValue ("categoria");
 
@@ -267,10 +270,13 @@
                     var data=JSON.parse(respuesta);
 
                     $("#selectCategoria").empty();
-                    $("#selectCategoria").append(`<option value="general">General</option>`);
+                    if($("#selectCarrera").val()!="equipo"){
+                        $("#selectCategoria").append(`<option value="general">General</option>`);
+                    }
+
                     $.each(data, function(index, item) {
 
-                        $("#selectCategoria").append(`<option  value="${item.idCategoria}" ${categoriaSeleccionada==item.idCategoria && categoriaSeleccionada!="general"?"selected":""}>${item.nombreCategoria}</option>`);
+                        $("#selectCategoria").append(`<option  value="${item.idCategoria}" ${categoriaSeleccionada==item.idCategoria ?"selected":""}>${item.nombreCategoria}</option>`);
 
                     });
 
