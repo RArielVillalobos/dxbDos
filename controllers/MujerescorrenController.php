@@ -53,12 +53,34 @@ class MujerescorrenController extends \yii\web\Controller
             }
 
         }
-
+        //buscador de personas/numero
+        if(isset($_GET["nombre_numero"]) && $_GET["nombre_numero"]!=null){
+           $corredores=Corredor::getCorredorByNombreNumero($_GET["nombre_numero"]);
+        }
 
        //
         return $this->render('index',['corredores'=>$corredores,'categoriaSeleccionada'=>$categoriaSeleccionada,'carreraSeleccionada'=>$carreraSeleccionadaString]);
     }
+    public function actionNew(){
+        //por defecto 5k categoria 1
+        $carreraSeleccionada=$_GET["carrera"];
+        $categoriaSeleccionada=1;
+        $corredores=Corredor::find()->where(['idCategoria'=>$categoriaSeleccionada])->where(['tiempo']>0)->orderBy('tiempo')->all();
+        if(isset($_GET["categoria"]) && $_GET["categoria"]!=null){
 
+            $categoriaSeleccionada=$_GET["categoria"];
+
+            $corredores=Corredor::find()->where(['idCategoria'=>$categoriaSeleccionada])->andWhere(['tiempo']>0)->orderBy('tiempo')->all();
+
+        }
+        if(isset($_GET["categoria"]) && $_GET["categoria"]=="general"){
+            $carreraSeleccionadaEntero=self::getKilometroByFiltroCarrera($carreraSeleccionada);
+            $corredores=Corredor::find()->where(['kilometros'=>$carreraSeleccionadaEntero])->andWhere(['tiempo']>0)->orderBy('tiempo')->all();
+        }
+
+
+        return $this->render('new',['corredores'=>$corredores,'carreraSeleccionada'=>$carreraSeleccionada]);
+    }
     public function actionCategorias(){
         $carrera=$_GET["carrera"];
          $filtroCarrera=self::getKilometroByFiltroCarrera($carrera);

@@ -93,7 +93,7 @@
                     <div class="col-sm-12 col-md-4 ">
                         <div class="form-group">
                             <label class="title">Buscar</label>
-                            <input placeholder="Nombre o Número de Corredor" type="text" class="form-control input">
+                            <input placeholder="Nombre o Número de Corredor" name="nombre_numero" type="text" class="form-control input">
 
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                             <tr>
                                 <th style="font-weight: 600; font-size: 14px!important;">Posicion</th>
                                 <th style="font-weight: 600; font-size: 14px!important;">Corredor</th>
-                                <th style="font-weight: 600; font-size: 14px!important;">Carrera</th>
+                                
                                 <th style="font-weight: 600; font-size: 14px!important;">Categoria</th>
                                 <th style="font-weight: 600; font-size: 14px!important;">Tiempo</th>
                             </tr>
@@ -164,7 +164,7 @@
 
                             <?php
                                 //$posicion=1;
-                            if($carreraSeleccionada=="equipo"){
+                            if($carreraSeleccionada=="equipo" && !isset($_GET["nombre_numero"])){
                                 $posicion=1;
 
                                   foreach ($corredores as $corredor){
@@ -207,7 +207,7 @@
                                         <td><?php echo $corredor["rank"]; ?></td>
                                         <td><span class="numero">#333</span> <strong
                                                     class="nombre"><?php echo $corredor["nombre"]; ?></strong></td>
-                                        <td><?php echo $corredor["kilometros"] . "KM"; ?></td>
+
                                         <td><?php echo $corredor["nombreCategoria"]; ?></td>
                                         <td class="tiempo"><?php echo date("H:i:s", $corredor["tiempo"] / 1000); ?></td>
                                     </tr>
