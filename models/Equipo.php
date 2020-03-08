@@ -81,10 +81,28 @@ class Equipo extends \yii\db\ActiveRecord
         $personasEquipo=Equipocorredor::findAll(['idEquipo'=>$this->idEquipo]);
         $nombre="";
         foreach ($personasEquipo as $persona){
-              $nombre.= $persona->corredor->persona->getNombreCompleto()."<span style='font-size: 13px' class='tiempo'>(".$persona->corredor->myTiempo().')</span> <br> ';
+              $nombre.= "<span class='numero'>"."#".$persona->corredor->numCorredor."</span> ".$persona->corredor->persona->getNombreCompleto()."<span style='font-size: 13px' class='tiempo'>(".$persona->corredor->myTiempo().')</span> <br> ';
         }
         //Remove the last character using rtrim
         $nombre = rtrim($nombre, "- ");
         return $nombre;
+    }
+
+    public function llegaronAmetaParticipantes(){
+        $llegaron=true;
+        $personasEquipo=Equipocorredor::findAll(['idEquipo'=>$this->idEquipo]);
+        foreach ($personasEquipo as $persona){
+            if($persona->corredor->tiempo==0){
+                $llegaron=false;
+            }
+
+
+
+
+        }
+
+        return $llegaron;
+
+
     }
 }
