@@ -108,6 +108,35 @@ class Corredor extends \yii\db\ActiveRecord
 
     }
 
+    public static function getResultado($kilometros=null,$equipo=null,$idCategoria=null,$nombre_numero=null){
+            $sql="SELECT count(eq.idEquipo) AS totalPersonasMeta, eq.idEquipo,p.idPersona,p.nombre,p.procedencia,p.dni,cat.nombreCategoria,cat.kilometros,
+    cat.equipo,c.numCorredor,c.tiempo,c.idCategoria  
+    FROM persona AS p 
+    INNER JOIN corredor AS c ON (p.idPersona=c.idPersona)
+    INNER JOIN categoria AS cat ON (c.idCategoria=cat.idCategoria)
+    LEFT JOIN equipocorredor AS eq ON (eq.idCorredor = c.idCorredor) WHERE c.tiempo>0 ";
+        if($kilometros!=null)     {
+            $sql.="AND cat.kilometros =$kilometros ";
+        }
+        if($equipo==false){
+            $sql.="AND cat.equipo =false ";
+        }
+         if($idCategoria!=null)     {
+             $sql.="AND  cat.idCategoria =$idCategoria ";
+         }
+
+
+         if(!empty($nombre_numero)){
+             $sql.="AND ( p.nombre LIKE '%$nombre_numero%' OR c.numCorredor LIKE '%$nombre_numero%')";
+
+         }
+         $sql.="GROUP BY eq.idEquipo ORDER BY c.tiempo ASC ";
+         $resultado=Yii::$app->getDb()->createCommand($sql)->queryAll();
+         echo $sql;
+         die();
+         return $resultado;
+    }
+    //\";
     //viejo
     /*public static function getCorredoresEquiposByCategoria($idCategoria){
         $users = $corredores = Yii::$app->getDb()->createCommand("SELECT idCorredor,numCorredor,p.nombre,p.apellido,p.dni,c.kilometros,c.nombreCategoria ,p.idPersona,s.tiempo,IF (@score=s.tiempo, @rank:=@rank, @rank:=@rank+1) rank, @score:=s.tiempo score FROM corredor s INNER JOIN categoria AS c ON (s.idCategoria=c.idCategoria) INNER JOIN persona AS p ON (s.idPersona=p.idPersona), (SELECT @score:=0, @rank:=0) r WHERE s.idCategoria=$idCategoria AND c.equipo=1 ORDER BY rank ASC")->queryAll();

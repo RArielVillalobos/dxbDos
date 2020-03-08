@@ -16,13 +16,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'apellido')->textInput(['maxlength' => true]) ?>
+    <?php //echo $form->field($model, 'apellido')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'procedencia')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fechaNac')->textInput() ?>
+    <?php //echo $form->field($model, 'fechaNac')->textInput() ?>
 
-    <?= $form->field($model, 'idGenero')->textInput() ?>
+    <?php //echo $form->field($model, 'idGenero')->textInput() ?>
 
     <?= $form->field($model, 'annoNac')->textInput() ?>
 

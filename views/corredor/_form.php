@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model,'idCategoria')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Categoria::find()->all(),'idCategoria','nombreCategoria'))?>
     
 
-    <?= $form->field($model,'idPersona')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Persona::find()->all(),'idPersona','dni')) ?>
+    <?= $form->field($model,'idPersona')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Persona::find()->orderBy('dni')->all(),'idPersona','dni')) ?>
 
    
 
