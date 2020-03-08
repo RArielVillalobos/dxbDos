@@ -205,7 +205,7 @@
                                     ?>
                                     <tr>
                                         <td><?php echo $posicion++;?></td>
-                                        <td><span class="numero">#333</span> <strong
+                                        <td><span class="numero"># <?php echo $corredor["numCorredor"];?></span> <strong
                                                     class="nombre"><?php echo $corredor["nombre"]; ?></strong></td>
 
                                         <td><?php echo $corredor["nombreCategoria"]; ?></td>
