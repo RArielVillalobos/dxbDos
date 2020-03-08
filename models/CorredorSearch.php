@@ -14,10 +14,14 @@ class CorredorSearch extends Corredor
     /**
      * {@inheritdoc}
      */
+    public $dni;
+    public $nombre;
+    
     public function rules()
     {
         return [
-            [['idCorredor', 'numCorredor', 'idCategoria', 'idPersona', 'tiempo'], 'integer'],
+            [['idCorredor', 'numCorredor', 'idCategoria', 'idPersona', 'tiempo','dni'], 'integer'],
+            [['nombre'], 'safe']
         ];
     }
 
@@ -39,7 +43,7 @@ class CorredorSearch extends Corredor
      */
     public function search($params)
     {
-        $query = Corredor::find();
+        $query = Corredor::find()->joinWith('persona');
 
         // add conditions that should always apply here
 
@@ -62,7 +66,9 @@ class CorredorSearch extends Corredor
             'idCategoria' => $this->idCategoria,
             'idPersona' => $this->idPersona,
             'tiempo' => $this->tiempo,
+            'persona.dni'=> $this->dni
         ]);
+         $query->andFilterWhere(['like', 'persona.nombre', $this->nombre]);
 
         return $dataProvider;
     }

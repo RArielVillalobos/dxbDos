@@ -29,11 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'idCorredor',
             'numCorredor',
             [
-              'attribute'=>'idCategoria',
+              'attribute'=>'cate',
                 'label'=>'Categoria',
                 'value'=>'cate'
             ],
-            'idPersona',
+            
+            //'idPersona',
+            ['label' => 'DNI', 'attribute' => 'dni', 'value' => 'persona.dni'],
+            ['label' => 'Nombre', 'attribute' => 'nombre', 'value' => 'persona.nombre'],
             'tiempo',
 
             ['class' => 'yii\grid\ActionColumn'],

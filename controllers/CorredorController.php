@@ -65,7 +65,7 @@ class CorredorController extends Controller
     public function actionCreate()
     {
         $model = new Corredor();
-
+        $model->tiempo=0;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idCorredor]);
         }
