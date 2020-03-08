@@ -143,7 +143,7 @@
                             <tr>
                                 <th style="font-weight: 600; font-size: 14px!important;">Posicion</th>
                                 <th style="font-weight: 600; font-size: 14px!important;">Corredor</th>
-                                
+
                                 <th style="font-weight: 600; font-size: 14px!important;">Categoria</th>
                                 <th style="font-weight: 600; font-size: 14px!important;">Tiempo</th>
                             </tr>
@@ -199,12 +199,12 @@
 
                             }else {
 
-
+                                $posicion=1;
                                 foreach ($corredores as $corredor) {
 
                                     ?>
                                     <tr>
-                                        <td><?php echo $corredor["rank"]; ?></td>
+                                        <td><?php echo $posicion++;?></td>
                                         <td><span class="numero">#333</span> <strong
                                                     class="nombre"><?php echo $corredor["nombre"]; ?></strong></td>
 
