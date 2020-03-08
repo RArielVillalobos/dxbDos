@@ -41,7 +41,7 @@ class MujerescorrenController extends \yii\web\Controller
             $corredores=Corredor::getCorredoresGeneral($carreraSeleccionadaEntero, 0);
         }else{
 
-            if($carreraSeleccionadaString=="equipo"){
+            if($carreraSeleccionadaString=="equipo" && $_GET["nombre_numero"]==null){
                 $corredores=Corredor::getCorredoresEquiposByCategoria($categoriaSeleccionada);
 
 

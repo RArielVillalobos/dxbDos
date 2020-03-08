@@ -142,10 +142,9 @@
                             <thead>
                             <tr>
                                 <th style="font-weight: 600; font-size: 14px!important;">Posicion</th>
-                                <th style="font-weight: 600; font-size: 14px!important;">Corredor</th>
-
-                                <th style="font-weight: 600; font-size: 14px!important;">Categoria</th>
-                                <th style="font-weight: 600; font-size: 14px!important;">Tiempo</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Corredores</th>
+                                <th>Categoria</th>
+                                <th style="font-weight: 600; font-size: 14px!important;">Tiempo Total</th>
                             </tr>
 
 
@@ -164,15 +163,13 @@
 
                             <?php
                                 //$posicion=1;
-                            if($carreraSeleccionada=="equipo" && !isset($_GET["nombre_numero"])){
+                            if($carreraSeleccionada=="equipo" ){
                                 $posicion=1;
 
                                   foreach ($corredores as $corredor){
 
 
                                          $equipo=\app\models\Equipo::findOne(['idEquipo'=>$corredor["idEquipo"]]);
-
-
 
 
 
@@ -183,7 +180,7 @@
                                              <tr>
                                                  <td><?php echo $posicion; $posicion++?></td>
                                                  <td><strong class="nombre"><?php echo $equipo->getNombreParticipantesEquipo(); ?></strong></td>
-                                                 <td>Equipos</td>
+
                                                  <td><?php echo $corredor["nombreCategoria"];?></td>
                                                  <td class="tiempo"><?php echo date("H:i:s", $corredor["sumaTotal"] / 1000); ?></td>
                                              </tr>
