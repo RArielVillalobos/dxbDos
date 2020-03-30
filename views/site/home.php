@@ -17,7 +17,7 @@
 
         </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -77,7 +77,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-6 offset-md-6 text-center text-md-right">
                             <h1>DXB</h1>
-                            <p class="d-none d-md-block">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, quas mollitia deleniti iste quam rem maxime consectetur autem voluptatum, iure nam quae ab iusto numquam dicta ex fuga ducimus sapiente?</p>
+                            <p class="d-none d-md-block">Aplicación móvil para cronometrar eventos deportivos</p>
                             <a href="#contacto" class="btn btn-outline-light">Quiero usarla</a>
 
                         </div>
@@ -119,8 +119,7 @@
                              </div>
                              -->
 
-                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                 card's content.</p>
+                             <p class="card-text"></p>
                              <a target="_blank" href="<?php echo "resultado?evento=". $evento->idEvento;?>"class="btn btn-dark">Ver Resultados</a>
                          </div>
                      </div>
@@ -134,8 +133,7 @@
                     <img src="<?php echo Yii::$app->request->baseUrl . "/images/dxb.png"?>" style="object-fit: cover;" height="204px" width="348px" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title mb-0">DESAFIO X BARDAS 2019</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+                        <p class="card-text"></p>
                         <a target="_blank" href="https://dxb.fi.uncoma.edu.ar/dxb2019/index.php?r=result%2Fresultados" class="btn btn-dark">Ver Resultados</a>
                     </div>
                 </div>
