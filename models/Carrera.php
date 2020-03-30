@@ -10,7 +10,7 @@ use Yii;
  * @property int $idCarrera
  * @property string $fecha
  * @property string $nombre
- *
+ **@property Evento $idEvento
  * @property Categoria[] $categorias
  */
 class Carrera extends \yii\db\ActiveRecord
@@ -29,7 +29,7 @@ class Carrera extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fecha', 'nombre'], 'required'],
+            [['fecha', 'nombre','idEvento'], 'required'],
             [['fecha'], 'safe'],
             [['nombre'], 'string', 'max' => 120],
         ];
@@ -44,6 +44,7 @@ class Carrera extends \yii\db\ActiveRecord
             'idCarrera' => 'Id Carrera',
             'fecha' => 'Fecha',
             'nombre' => 'Nombre',
+            ''
         ];
     }
 
@@ -55,5 +56,13 @@ class Carrera extends \yii\db\ActiveRecord
     public function getCategorias()
     {
         return $this->hasMany(Categoria::className(), ['idCarrera' => 'idCarrera']);
+    }
+
+    public function getEvento()
+    {
+        return $this->hasOne(Evento::className(), ['idEvento' => 'idEvento']);
+    }
+    public function GetEvent(){
+        return $this->evento->nombre;
     }
 }

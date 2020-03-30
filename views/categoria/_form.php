@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idCarrera')->textInput() ?>
+    <?= $form->field($model,'idCarrera')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Carrera::find()->all(),'idCarrera','nombre'))?>
 
     <?= $form->field($model, 'kilometros')->textInput() ?>
 

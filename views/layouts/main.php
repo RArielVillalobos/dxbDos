@@ -40,6 +40,9 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Corredor', 'url' => ['/corredor']],
             ['label' => 'Persona', 'url' => ['/persona']],
+            ['label' => 'Evento', 'url' => ['/evento'],'visible' => !Yii::$app->user->isGuest &&  Yii::$app->user->identity->idRol== \app\models\Rol::rol_admin],
+            ['label' => 'Carrera', 'url' => ['/carrera'],'visible' => !Yii::$app->user->isGuest &&  Yii::$app->user->identity->idRol== \app\models\Rol::rol_admin],
+            ['label' => 'Categoria', 'url' => ['/categoria','visible' => !Yii::$app->user->isGuest &&  Yii::$app->user->identity->idRol== \app\models\Rol::rol_admin]],
             //['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

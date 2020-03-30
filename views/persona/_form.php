@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?php //echo $form->field($model, 'fechaNac')->textInput() ?>
 
-    <?php //echo $form->field($model, 'idGenero')->textInput() ?>
+    <?php echo $form->field($model, 'idGenero')->textInput() ?>
 
     <?= $form->field($model, 'annoNac')->textInput() ?>
 

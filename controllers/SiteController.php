@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Evento;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,9 +62,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        //return $this->render('index');
-        //$this->redirect('mujerescorren/index');
-        return $this->redirect(["mujerescorren/index"]);
+        $this->layout=false;
+        $eventos=Evento::find()->all();
+        return $this->render('home',['eventos'=>$eventos]);
+
+
+        //return $this->redirect(["mujerescorren/index"]);
     }
 
     /**

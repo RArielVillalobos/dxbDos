@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'fecha')->textInput() ?>
+    <?= $form->field($model,'idEvento')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Evento::find()->all(),'idEvento','nombre'))?>
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 

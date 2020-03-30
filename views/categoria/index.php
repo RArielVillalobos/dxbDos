@@ -27,7 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'idCategoria',
-            'idCarrera',
+            [
+                'attribute'=>'carrera',
+                'label'=>'Carrera',
+                'value'=>'carrera'
+            ],
             'kilometros',
             'nombreCategoria',
             'equipo',

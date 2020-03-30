@@ -83,4 +83,29 @@ class Categoria extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Equipo::className(), ['idCategoria' => 'idCategoria']);
     }
+    /*public function findFilter(){
+        $query = parent::find()->addSelect('*')->joinWith('idCarrera0')->joinWith('idEvento')->joinWith('UsuarioEventos');
+        return $query;
+    }*/
+    public function getCarrera(){
+        return $this->idCarrera0->evento->nombre."-". $this->idCarrera0->nombre;
+    }
+    
+    public function findFilter(){
+        
+    }
+
+    public function categorias($idUsuario){
+        $sql="SELECT cat.idCategoria,cat.nombreCategoria from categoria AS cat INNER JOIN carrera AS c ON cat.idCarrera=c.idCarrera
+              INNER JOIN evento AS e ON c.idEvento=e.idEvento
+              INNER JOIN usuarioEvento AS ue ON ue.idEvento=e.idEvento
+              INNER JOIN usuario AS u  ON ue.idUsuario=u.idUsuario
+              WHERE u.idUsuario=$idUsuario";
+        $resultado=Yii::$app->getDb()->createCommand($sql)->queryAll();
+        return $resultado;
+
+    }
+
+
+
 }

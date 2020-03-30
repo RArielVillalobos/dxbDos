@@ -14,9 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'numCorredor')->textInput() ?>
 
-    <?= $form->field($model,'idCategoria')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Categoria::find()->all(),'idCategoria','nombreCategoria'))?>
-    
-
+    <?= $form->field($model,'idCategoria')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Categoria::categorias(Yii::$app->user->id),'idCategoria','nombreCategoria')) ?>
     <?= $form->field($model,'idPersona')->dropDownList(yii\helpers\ArrayHelper::map(\app\models\Persona::find()->orderBy('dni')->all(),'idPersona','dni')) ?>
 
    
