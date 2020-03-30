@@ -37,7 +37,7 @@
                     <?php
                      if(Yii::$app->user->isGuest){
                          ?>
-                         <a class="nav-link" target="_blank" href="index.php?r=site%2Flogin">Iniciar Sesión</a>
+                         <a class="nav-link" target="_blank" href="site/login">Iniciar Sesión</a>
 
                     <?php
                      }
