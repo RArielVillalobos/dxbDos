@@ -28,6 +28,7 @@ class TiempoController extends \yii\web\Controller
         foreach ($corredores as $numCorredor){
             $tiempoLlegada=\Yii::$app->request->post()["tiempoLlegada"];
             $tiempoLlegadaCorredor = \DateTime::createFromFormat($formatoLlegada, $tiempoLlegada);
+            var_dump($tiempoLlegada);
             var_dump($tiempoLlegadaCorredor);
             var_dump(\DateTime::getLastErrors());
             die();
