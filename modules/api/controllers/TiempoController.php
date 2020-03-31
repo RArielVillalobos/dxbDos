@@ -23,6 +23,8 @@ class TiempoController extends \yii\web\Controller
         $formatoLargada = 'Y-m-d H:i:s';
         $formatoLlegada='Y-m-d H:i:s.u';
         //$idPunto=\Yii::$app->request->post()["idPunto"];
+        var_dump(\Yii::$app->request->post());
+        die();
         $corredores=$this->multiCorredor(\Yii::$app->request->post()["numCorredor"]);
         $colTiempos=[];
         foreach ($corredores as $numCorredor){
