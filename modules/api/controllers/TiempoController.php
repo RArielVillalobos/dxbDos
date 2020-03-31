@@ -22,17 +22,12 @@ class TiempoController extends \yii\web\Controller
         \Yii::$app->response->format=Response::FORMAT_JSON;
         $formatoLargada = 'Y-m-d H:i:s';
         $formatoLlegada='Y-m-d H:i:s.u';
-        var_dump(\Yii::$app->request->post());
-        die();
         //$idPunto=\Yii::$app->request->post()["idPunto"];
         $corredores=$this->multiCorredor(\Yii::$app->request->post()["numCorredor"]);
         $colTiempos=[];
         foreach ($corredores as $numCorredor){
             $tiempoLlegada=\Yii::$app->request->post()["tiempoLlegada"];
             $tiempoLlegadaCorredor = \DateTime::createFromFormat($formatoLlegada, $tiempoLlegada);
-            var_dump($tiempoLlegadaCorredor);
-            var_dump(\DateTime::getLastErrors());
-            die();
             $tiempo=new \app\models\Tiempo();
             $tiempo->idPunto=1;
             $tiempo->tiempo=$tiempoLlegadaCorredor->format($formatoLlegada);
