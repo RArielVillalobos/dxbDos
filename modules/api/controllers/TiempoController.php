@@ -13,7 +13,7 @@ class TiempoController extends \yii\web\Controller
     public function actionIndex()
     {
         \Yii::$app->response->format=Response::FORMAT_JSON;
-        return $this->ultimoEvento()->idEvento;
+        return $this->ultimoEvento();
         //return ['status'=>true,'data'=>null,'mensaje'=>"api funcionando"];
         //return $this->render('index');
     }
