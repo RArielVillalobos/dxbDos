@@ -3,6 +3,7 @@
 namespace app\modules\api\controllers;
 
 use app\models\Corredor;
+use app\models\Evento;
 use app\modules\api\models\Tiempo;
 use yii\web\Response;
 
@@ -12,49 +13,45 @@ class TiempoController extends \yii\web\Controller
     public function actionIndex()
     {
         \Yii::$app->response->format=Response::FORMAT_JSON;
-        return ['status'=>true,'data'=>null,'mensaje'=>"api funcionando"];
+        return $this->ultimoEvento()->idEvento;
+        //return ['status'=>true,'data'=>null,'mensaje'=>"api funcionando"];
         //return $this->render('index');
     }
 
     public function actionNuevo(){
-        \Yii::$app->response->format=Response::FORMAT_JSON;
-        $idPunto=\Yii::$app->request->post()["idPunto"];
-        $idUsu=\Yii::$app->request->post()["idUser"];
-        $numCorredor=(int)\Yii::$app->request->post()["numCorredor"];
-        $tiempoLlegada=\Yii::$app->request->post()["tiempoLlegada"];
         $formatoLargada = 'Y-m-d H:i:s';
         $formatoLlegada='Y-m-d H:i:s.u';
-        $tiempoLlegadaCorredor = \DateTime::createFromFormat($formatoLlegada, $tiempoLlegada);
-        $tiempo=new \app\models\Tiempo();
-        $tiempo->idPunto=$idPunto;
-        $tiempo->tiempo=$tiempoLlegadaCorredor->format($formatoLlegada);
-        $tiempo->idUsuario=1;
-        $tiempo->numCorredor=$numCorredor;
-        //$corredorBD=Corredor::find()->where(["numCorredor"])
-        if($tiempo->save()){
-            $tiempoLargadaCarrera=\DateTime::createFromFormat($formatoLargada, $tiempo->idPunto0->idCarrera0->largada);
-            $idCarrera=(int)$tiempo->idPunto0->idCarrera0->idCarrera;
-            $corredor=\Yii::$app->getDb()->createCommand("SELECT * from corredor INNER JOIN categoria ON corredor.idCategoria=categoria.idCategoria WHERE categoria.idCarrera=$idCarrera AND corredor.numCorredor=$numCorredor")->queryOne();
-
+        \Yii::$app->response->format=Response::FORMAT_JSON;
+        //$idPunto=\Yii::$app->request->post()["idPunto"];
+        $corredores=$this->multiCorredor(\Yii::$app->request->post()["numCorredor"]);
+        $colTiempos=[];
+        foreach ($corredores as $numCorredor){
+            $tiempoLlegada=\Yii::$app->request->post()["tiempoLlegada"];
+            $tiempoLlegadaCorredor = \DateTime::createFromFormat($formatoLlegada, $tiempoLlegada);
+            $tiempo=new \app\models\Tiempo();
+            $tiempo->idPunto=1;
+            $tiempo->tiempo=$tiempoLlegadaCorredor->format($formatoLlegada);
+            $tiempo->idUsuario=1;
+            $tiempo->numCorredor=(int)$numCorredor;
+            $corredor=$this->obtenerCorredorUltimoEvento((int)$numCorredor);
+            //SI EL CORREDOR ESTA ACREDITADO SE SETEA EL TIEMPO EN MILISEGUNDOS
             if($corredor!=false){
+                $tiempoLargadaCarrera=\DateTime::createFromFormat($formatoLargada, $corredor["largada"]);
                 $diff=$tiempoLlegadaCorredor->diff($tiempoLargadaCarrera);
                 $corredor=Corredor::find()->where(["idCorredor"=>$corredor["idCorredor"]])->one();
                 $tiempo->idCorredor=$corredor->idCorredor;
-                $tiempo->save();
+
                 $corredor->tiempo=(int)$this->toMilisegundos($diff);
                 $corredor->save();
-                //print_r($corredor->getErrors());
-                echo "ok";
+                //return ['status'=>true,'data'=>$tiempo];
             }
-
-
-            return ['status'=>true,'data'=>$tiempo];
-        }else{
-            return ['status'=>true,'data'=>$tiempo->getErrors()];
+            if($tiempo->save()){
+                $colTiempos[]=$tiempo;
+            }
 
         }
 
-        //die();
+        return ['status'=>true,'data'=>$colTiempos,'mensaje'=>"insertados:".count($colTiempos)];
 
     }
     private function toMilisegundos($interval){
@@ -68,6 +65,23 @@ class TiempoController extends \yii\web\Controller
         //$totalMiliseconds+=$interval->f*
         return $totalMiliseconds;
 
+    }
+    private function multiCorredor($stringCorredor){
+       $arregloCorredores=explode("-",$stringCorredor);
+       return $arregloCorredores;
+
+    }
+    private function ultimoEvento(){
+       return  $ultimoEvento=Evento::find()->orderBy(['idEvento' => SORT_DESC])->one();
+    }
+
+    private function obtenerCorredorUltimoEvento($numCorredor){
+        $idUltimoEvento=$this->ultimoEvento()->idEvento;
+        $corredor=\Yii::$app->getDb()->createCommand("SELECT c.idCorredor,c.numCorredor,car.largada FROM corredor AS c
+                INNER JOIN categoria AS cat ON c.idCategoria=cat.idCategoria
+                INNER JOIN carrera AS car ON cat.idCarrera=car.idCarrera 
+                INNER JOIN evento AS e ON car.idEvento=e.idEvento WHERE c.numCorredor=$numCorredor AND e.idEvento=$idUltimoEvento")->queryOne();
+        return $corredor;
     }
     
 
