@@ -29,6 +29,7 @@ class TiempoController extends \yii\web\Controller
             $tiempoLlegada=\Yii::$app->request->post()["tiempoLlegada"];
             $tiempoLlegadaCorredor = \DateTime::createFromFormat($formatoLlegada, $tiempoLlegada);
             var_dump($tiempoLlegadaCorredor);
+            var_dump(\DateTime::getLastErrors());
             die();
             $tiempo=new \app\models\Tiempo();
             $tiempo->idPunto=1;
