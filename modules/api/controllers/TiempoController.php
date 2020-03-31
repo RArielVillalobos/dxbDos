@@ -11,8 +11,8 @@ class TiempoController extends \yii\web\Controller
     public $enableCsrfValidation=false;
     public function actionIndex()
     {
-        echo "api funcionando";
-        die();
+        \Yii::$app->response->format=Response::FORMAT_JSON;
+        return ['status'=>true,'data'=>null,'mensaje'=>"api funcionando"];
         //return $this->render('index');
     }
 
