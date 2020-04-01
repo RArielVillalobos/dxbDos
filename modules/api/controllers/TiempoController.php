@@ -27,34 +27,48 @@ class TiempoController extends \yii\web\Controller
         //$idPunto=\Yii::$app->request->post()["idPunto"];
         $data=json_decode(\Yii::$app->request->rawBody);
         $colTiempos=[];
-        foreach ($data as $dat){
-            $corredores=$this->multiCorredor($dat->numCorredor);
-            foreach ($corredores as $numCorredor){
-                $tiempoLlegada=$dat->tiempoLlegada;
-                $tiempoLlegadaCorredor = \DateTime::createFromFormat($formatoLlegada, $tiempoLlegada);
-                $tiempo=new \app\models\Tiempo();
-                $tiempo->idPunto=1;
-                $tiempo->tiempo=$tiempoLlegadaCorredor->format($formatoLlegada);
-                $tiempo->idUsuario=1;
-                $tiempo->numCorredor=(int)$numCorredor;
-                $corredor=$this->obtenerCorredorUltimoEvento((int)$numCorredor);
-                //SI EL CORREDOR ESTA ACREDITADO SE SETEA EL TIEMPO EN MILISEGUNDOS
-                if($corredor!=false){
-                    $tiempoLargadaCarrera=\DateTime::createFromFormat($formatoLargada, $corredor["largada"]);
-                    $diff=$tiempoLlegadaCorredor->diff($tiempoLargadaCarrera);
-                    $corredor=Corredor::find()->where(["idCorredor"=>$corredor["idCorredor"]])->one();
-                    $tiempo->idCorredor=$corredor->idCorredor;
 
-                    $corredor->tiempo=(int)$this->toMilisegundos($diff);
-                    $corredor->save();
-                    //return ['status'=>true,'data'=>$tiempo];
-                }
-                if($tiempo->save()){
-                    $colTiempos[]=$tiempo;
+        foreach ($data as $dat){
+            if($dat->numCorredor!=null){
+                $corredores=$this->multiCorredor($dat->numCorredor);
+                foreach ($corredores as $numCorredor){
+                    $tiempoLlegadaParseado=\DateTime::createFromFormat($formatoLlegada, $dat->tiempoLlegada);
+                    $stringHora=$tiempoLlegadaParseado->format($formatoLargada);
+                    $tiempoBD=Tiempo::find()->where(['numCorredor'=>(int)$dat->numCorredor])->andWhere(["tiempo"=>$stringHora])->one();
+                    
+                    /*SI EL TIEMPO TODAVIA NO SE CARGO*/
+                    if($tiempoBD==null){
+                        $tiempoLlegada=$dat->tiempoLlegada;
+                        $tiempoLlegadaCorredor = \DateTime::createFromFormat($formatoLlegada, $tiempoLlegada);
+                        $tiempo=new \app\models\Tiempo();
+                        $tiempo->idPunto=1;
+                        $tiempo->tiempo=$tiempoLlegadaCorredor->format($formatoLlegada);
+                        $tiempo->idUsuario=1;
+                        $tiempo->numCorredor=(int)$numCorredor;
+                        $corredor=$this->obtenerCorredorUltimoEvento((int)$numCorredor);
+                        //SI EL CORREDOR ESTA ACREDITADO SE SETEA EL TIEMPO EN MILISEGUNDOS
+                        if($corredor!=false){
+                            $tiempoLargadaCarrera=\DateTime::createFromFormat($formatoLargada, $corredor["largada"]);
+                            $diff=$tiempoLlegadaCorredor->diff($tiempoLargadaCarrera);
+                            $corredor=Corredor::find()->where(["idCorredor"=>$corredor["idCorredor"]])->one();
+                            $tiempo->idCorredor=$corredor->idCorredor;
+
+                            $corredor->tiempo=(int)$this->toMilisegundos($diff);
+                            $corredor->save();
+                            //return ['status'=>true,'data'=>$tiempo];
+                        }
+                        if($tiempo->save()){
+                            $colTiempos[]=$tiempo;
+
+                        }
+
+                    }
+
 
                 }
 
             }
+
 
 
         }
