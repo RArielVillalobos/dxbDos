@@ -9,6 +9,7 @@ use yii\web\Response;
 
 class TiempoController extends \yii\web\Controller
 {
+    
     public $enableCsrfValidation=false;
     public function actionIndex()
     {
