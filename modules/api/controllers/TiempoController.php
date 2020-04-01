@@ -9,8 +9,9 @@ use yii\web\Response;
 
 class TiempoController extends \yii\web\Controller
 {
-    
+
     public $enableCsrfValidation=false;
+
     public function actionIndex()
     {
         \Yii::$app->response->format=Response::FORMAT_JSON;
@@ -24,7 +25,13 @@ class TiempoController extends \yii\web\Controller
         $formatoLargada = 'Y-m-d H:i:s';
         $formatoLlegada='Y-m-d H:i:s.u';
         //$idPunto=\Yii::$app->request->post()["idPunto"];
-        var_dump(\Yii::$app->request->post());
+        $data=json_decode(\Yii::$app->request->rawBody);
+        foreach ($data as $dat){
+            print_r($dat);
+
+
+        }
+
         die();
         $corredores=$this->multiCorredor(\Yii::$app->request->post()["numCorredor"]);
         $colTiempos=[];
