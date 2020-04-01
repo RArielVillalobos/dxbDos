@@ -31,11 +31,12 @@ class TiempoController extends \yii\web\Controller
         foreach ($data as $dat){
             if($dat->numCorredor!=null){
                 $corredores=$this->multiCorredor($dat->numCorredor);
+
                 foreach ($corredores as $numCorredor){
                     $tiempoLlegadaParseado=\DateTime::createFromFormat($formatoLlegada, $dat->tiempoLlegada);
                     $stringHora=$tiempoLlegadaParseado->format($formatoLargada);
-                    $tiempoBD=Tiempo::find()->where(['numCorredor'=>(int)$dat->numCorredor])->andWhere(["tiempo"=>$stringHora])->one();
-                    
+                    $tiempoBD=Tiempo::find()->where(['numCorredor'=>(int)$numCorredor])->andWhere(["tiempo"=>$stringHora])->one();
+
                     /*SI EL TIEMPO TODAVIA NO SE CARGO*/
                     if($tiempoBD==null){
                         $tiempoLlegada=$dat->tiempoLlegada;
